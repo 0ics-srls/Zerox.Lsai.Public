@@ -17,16 +17,23 @@ LSAI gives AI coding assistants (Claude Code, Cursor, etc.) deep understanding o
 | `lsai_callees` | What does this function/method call? |
 | `lsai_hierarchy` | Type inheritance chain |
 | `lsai_diagnostics` | Compiler errors and warnings |
+| `lsai_rename` | Rename a symbol across the workspace (writes to disk) |
 
 ## Supported Languages
 
-| Language | LSP Server | Status |
-|----------|-----------|--------|
-| Python | [ty-lsai](https://pypi.org/project/ty-lsai/) | 9/10 tools |
-| Java | jdtls | 9/10 tools |
-| TypeScript | typescript-language-server | 7/10 tools |
-| JavaScript | typescript-language-server | 8/10 tools |
-| C# | Roslyn | 10/10 tools |
+| Language | LSP Server | Notes |
+|----------|-----------|-------|
+| C# | Roslyn (in-process) | Full coverage incl. `deps` and `impact` |
+| Python | [ty-lsai](https://pypi.org/project/ty-lsai/) | Rename limited upstream |
+| Java | jdtls | Project must be built (`mvn compile` / `gradle build`) |
+| TypeScript | typescript-language-server | — |
+| JavaScript | typescript-language-server | — |
+| PHP | intelephense | `rename` returns `ToolNotSupported` (upstream limit) |
+| Rust | rust-analyzer | — |
+| Go | gopls | — |
+| C / C++ | clangd | — |
+
+Tool-vs-language coverage varies where the upstream LSP doesn't expose a capability (e.g. call hierarchy on PHP); in those cases LSAI returns a clean `N/A` response instead of failing.
 
 ---
 
@@ -36,17 +43,27 @@ LSAI gives AI coding assistants (Claude Code, Cursor, etc.) deep understanding o
 
 You install LSAI **once**, from any directory. The installer puts everything in `~/.lsai/` so it works for every project on your machine.
 
+**Linux / macOS / WSL:**
+
 ```bash
-curl -fsSL https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/lsai-install.sh | bash
+curl -fsSL https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/install.sh | bash
+```
+
+**Windows (PowerShell):**
+
+```powershell
+iwr https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/install.ps1 -OutFile $env:TEMP\lsai-install.ps1
+& $env:TEMP\lsai-install.ps1
 ```
 
 **Requirements** (the installer checks and tells you what's missing):
-- [.NET 10 runtime](https://dotnet.microsoft.com/download)
+- [.NET 10 runtime](https://dotnet.microsoft.com/download) — must be on `PATH` (`dotnet --version` works)
 - Python 3.8+ (for Python/ty-lsai)
-- Node.js (for TypeScript/JavaScript)
+- Node.js (for TypeScript, JavaScript, PHP/intelephense)
 - JDK 21+ (for Java/jdtls) — `JAVA_HOME` is auto-resolved from `which java` if not set
+- Go toolchain (for Go/gopls), rustup (for Rust/rust-analyzer), clangd (for C/C++) — only if you work in those languages
 
-The installer downloads any missing LSP servers (jdtls, ty-lsai, typescript-language-server) into `~/.lsai/servers/`. Your project is never touched.
+The installer downloads any missing LSP servers (jdtls, ty-lsai, typescript-language-server, …) into `~/.lsai/servers/` and reports which languages are ready. Your project is never touched.
 
 What gets installed:
 ```
@@ -182,7 +199,9 @@ LSAI never builds. Run `mvn compile` (or `gradle build`) in the project once, th
 The installer puts jdtls in `~/.lsai/servers/jdtls/`. `JAVA_HOME` is auto-resolved from `which java` if not in your environment. If resolution fails, set `JAVA_HOME` explicitly.
 
 **LSP server shows NOT INSTALLED despite being there**
-Re-run the installer: `curl -fsSL https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/lsai-install.sh | bash`
+Re-run the installer:
+- Linux/macOS: `curl -fsSL https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/install.sh | bash`
+- Windows: re-run `install.ps1` from the latest release.
 
 ---
 
