@@ -1,0 +1,460 @@
+{
+  "CSharp": {
+    "comparable": {
+      "search": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 157,
+          "grep": 1046,
+          "save": 85
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 73,
+          "grep": 1997,
+          "save": 96
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 63,
+          "grep": 373,
+          "save": 83
+        }
+      ],
+      "info": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 23,
+          "grep": 0,
+          "save": 0
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 25,
+          "grep": 0,
+          "save": 0
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 32,
+          "grep": 584,
+          "save": 95
+        }
+      ],
+      "usages": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 268,
+          "grep": 1046,
+          "save": 74
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 150,
+          "grep": 1997,
+          "save": 92
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 31,
+          "grep": 373,
+          "save": 92
+        }
+      ],
+      "outline": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 460,
+          "grep": 44,
+          "save": -945
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 460,
+          "grep": 44,
+          "save": -945
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 149,
+          "grep": 11,
+          "save": -1255
+        }
+      ],
+      "source": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 49,
+          "grep": 444,
+          "save": 89
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 27,
+          "grep": 329,
+          "save": 92
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 1209,
+          "grep": 597,
+          "save": -103
+        }
+      ],
+      "deps": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 2674,
+          "grep": 43682,
+          "save": 94
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 2674,
+          "grep": 43682,
+          "save": 94
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 2674,
+          "grep": 43682,
+          "save": 94
+        }
+      ]
+    },
+    "unique": {
+      "callers": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 725
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 256
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 0
+        }
+      ],
+      "callees": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 0
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 0
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 0
+        }
+      ],
+      "hierarchy": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 42
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 17
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 4
+        }
+      ],
+      "impact": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 943
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 396
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 25
+        }
+      ],
+      "file_refs": [
+        {
+          "sym": "SearchAsync",
+          "lang": "CSharp",
+          "lsai": 1816
+        },
+        {
+          "sym": "FlushAsync",
+          "lang": "CSharp",
+          "lsai": 1816
+        },
+        {
+          "sym": "DepsOperation",
+          "lang": "CSharp",
+          "lsai": 127
+        }
+      ]
+    }
+  },
+  "JavaScript": {
+    "comparable": {
+      "search": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 11,
+          "grep": 41,
+          "save": 73
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 179,
+          "grep": 2392,
+          "save": 93
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 171,
+          "grep": 1863,
+          "save": 91
+        }
+      ],
+      "info": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 19,
+          "grep": 65,
+          "save": 71
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 21,
+          "grep": 1069,
+          "save": 98
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 15,
+          "grep": 430,
+          "save": 97
+        }
+      ],
+      "usages": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 34,
+          "grep": 41,
+          "save": 17
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 5,
+          "grep": 2392,
+          "save": 100
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 3,
+          "grep": 1863,
+          "save": 100
+        }
+      ],
+      "outline": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 102,
+          "grep": 38,
+          "save": -168
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 323,
+          "grep": 328,
+          "save": 2
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 517,
+          "grep": 534,
+          "save": 3
+        }
+      ],
+      "source": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 153,
+          "grep": 245,
+          "save": 38
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 160,
+          "grep": 878,
+          "save": 82
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 141,
+          "grep": 344,
+          "save": 59
+        }
+      ],
+      "deps": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 49498,
+          "grep": 5435,
+          "save": -811
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 49498,
+          "grep": 5435,
+          "save": -811
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 49498,
+          "grep": 5435,
+          "save": -811
+        }
+      ]
+    },
+    "unique": {
+      "callers": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 21
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 0
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 0
+        }
+      ],
+      "callees": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 34
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 38
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 0
+        }
+      ],
+      "hierarchy": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 6
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 3
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 3
+        }
+      ],
+      "impact": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 40
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 12
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 10
+        }
+      ],
+      "file_refs": [
+        {
+          "sym": "createApplication",
+          "lang": "JavaScript",
+          "lsai": 129
+        },
+        {
+          "sym": "handle",
+          "lang": "JavaScript",
+          "lsai": 61
+        },
+        {
+          "sym": "render",
+          "lang": "JavaScript",
+          "lsai": 46
+        }
+      ]
+    }
+  }
+}
