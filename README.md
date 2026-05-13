@@ -293,4 +293,4 @@ Report bugs and feature requests in [Issues](https://github.com/0ics-srls/Zerox.
 
 ## License
 
-Proprietary -- (c) 0ics s.r.l.s.
+Proprietary -- (c) 0ics srl
