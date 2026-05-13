@@ -260,10 +260,37 @@ Or just `rm -rf ~/.lsai` and remove the `lsai` entry from your `.mcp.json`.
 
 ---
 
+## Full Benchmark Matrix — v1.0.176
+
+Measured on C# (366 files) and JavaScript/Express (97 files). Tokens = chars / 4.
+
+| Tool | C# LSAI | C# grep | C# Save | JS LSAI | JS grep | JS Save | Category |
+|------|--------:|--------:|--------:|--------:|--------:|--------:|----------|
+| search | 98 | 1,805 | **95%** | 120 | 1,432 | **92%** | Comparable |
+| info | 27 | 292 | **91%** | 18 | 521 | **97%** | Comparable |
+| usages | 150 | 1,805 | **92%** | 14 | 1,432 | **99%** | Comparable |
+| outline | 356 | 33 | -979% | 314 | 300 | -5% | More data |
+| source | 428 | 457 | **6%** | 151 | 489 | **69%** | Comparable |
+| deps | 2,674 | 43,682 | **94%** | 49,498 | 5,435 | -811% | Bug (node_modules) |
+| callers | 327 | -- | -- | 7 | -- | -- | Unique |
+| callees | 0 | -- | -- | 24 | -- | -- | Unique |
+| hierarchy | 21 | -- | -- | 4 | -- | -- | Unique |
+| impact | 455 | -- | -- | 21 | -- | -- | Unique |
+| file_refs | 1,253 | -- | -- | 79 | -- | -- | Unique |
+
+**--** = grep cannot do this (no equivalent operation exists)
+
+**Notes:**
+- `outline` returns MORE data than grep (full signatures, types, accessibility) — richer, not wasteful
+- `deps` JS bug: regex scans `node_modules/` — fix pending
+- `callers`/`callees`/`hierarchy`/`impact`/`file_refs`: semantic operations impossible with text search
+
+---
+
 ## Issues
 
 Report bugs and feature requests in [Issues](https://github.com/0ics-srls/Zerox.Lsai.Public/issues).
 
 ## License
 
-Proprietary — (c) 0ics s.r.l.s.
+Proprietary -- (c) 0ics s.r.l.s.
