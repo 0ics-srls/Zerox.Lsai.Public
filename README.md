@@ -128,6 +128,35 @@ Claude Code inherits this directory as its working directory. When it spawns the
 
 ---
 
+## Benchmark — Token Savings on Real Projects
+
+Measured on production codebases: C# (366 files) and JavaScript/Express (97 files). [Raw data](benchmark-results.json).
+
+### Comparable Tools — LSAI vs grep
+
+| Tool | Savings | Why LSAI Wins |
+|------|:-------:|---------------|
+| **search** | **87%** | Structured `file:line kind name` -- grep returns full lines with path noise |
+| **info** | **90%** | Signature + docs + type in one call -- grep needs `-A5` and misses metadata |
+| **usages** | **79%** | Semantic references only -- grep includes comments, strings, false positives |
+| **source** | **72%** | Extracts exact method body -- grep `-A30` includes surrounding code |
+| **deps** | **94%** | Parsed imports per file -- grep returns raw noise from all files |
+
+### Unique Tools — grep CANNOT do this
+
+| Tool | What It Does | grep Alternative |
+|------|-------------|:----------------:|
+| **callers** | Semantic call graph: who calls this method? | Impossible |
+| **callees** | What does this method call? | Impossible |
+| **hierarchy** | Inheritance tree: base types, interfaces, derived | Impossible |
+| **impact** | Change risk: usages + callers + affected tests | Impossible |
+| **file_refs** | Cross-file reference map with symbol names | Impossible |
+| **context** | Composite: outline + diagnostics + usages + callers + risk | Impossible |
+
+Full benchmark methodology and protocol spec: [LSAI Protocol](https://github.com/LadislavSopko/lsai-protocol).
+
+---
+
 ## For AI Assistants
 
 **Your workspace is implicit.** When the LSAI MCP server starts, it automatically opens the directory it was launched from (which is Claude Code's cwd, which is the project the user opened Claude Code in). You do **not** need to call `lsai_workspace_open` in the normal case.
