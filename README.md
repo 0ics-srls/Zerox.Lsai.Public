@@ -16,24 +16,28 @@ LSAI gives AI coding assistants (Claude Code, Cursor, etc.) deep understanding o
 | `lsai_callers` | Who calls this function/method? |
 | `lsai_callees` | What does this function/method call? |
 | `lsai_hierarchy` | Type inheritance chain |
+| `lsai_impact` | Change impact analysis — usages, callers, affected tests, risk |
+| `lsai_deps` | File-level dependency analysis (imports/includes) |
+| `lsai_file_refs` | Cross-file reference map for a given file |
+| `lsai_context` | Composite: outline + diagnostics + usages + callers + risk |
 | `lsai_diagnostics` | Compiler errors and warnings |
 | `lsai_rename` | Rename a symbol across the workspace (writes to disk) |
 
 ## Supported Languages
 
-| Language | LSP Server | Notes |
-|----------|-----------|-------|
-| C# | Roslyn (in-process) | Full coverage incl. `deps` and `impact` |
-| Python | [ty-lsai](https://pypi.org/project/ty-lsai/) | Rename limited upstream |
-| Java | jdtls | Project must be built (`mvn compile` / `gradle build`) |
-| TypeScript | typescript-language-server | — |
-| JavaScript | typescript-language-server | — |
-| PHP | intelephense | `rename` returns `ToolNotSupported` (upstream limit) |
-| Rust | rust-analyzer | — |
-| Go | gopls | — |
-| C / C++ | clangd | — |
+| Language | LSP Server | Status |
+|----------|-----------|--------|
+| C# | Roslyn (in-process) | All 14 tools |
+| Python | [ty-lsai](https://pypi.org/project/ty-lsai/) | All tools; rename limited upstream |
+| Java | jdtls | All tools; project must be built first |
+| TypeScript | typescript-language-server | All tools |
+| JavaScript | typescript-language-server | All tools |
+| PHP | intelephense | All tools; rename returns N/A (free tier) |
+| Rust | rust-analyzer | All tools |
+| Go | gopls | All tools |
+| C / C++ | clangd | All tools |
 
-Tool-vs-language coverage varies where the upstream LSP doesn't expose a capability (e.g. call hierarchy on PHP); in those cases LSAI returns a clean `N/A` response instead of failing.
+All 14 MCP tools work on every language. Where an upstream LSP lacks a capability (e.g. call hierarchy on PHP), LSAI provides fallback strategies (reference-based callers, regex-based callees) so the tool still returns useful data instead of failing.
 
 ---
 
@@ -63,7 +67,7 @@ iwr https://github.com/0ics-srls/Zerox.Lsai.Public/releases/latest/download/inst
 - JDK 21+ (for Java/jdtls) — `JAVA_HOME` is auto-resolved from `which java` if not set
 - Go toolchain (for Go/gopls), rustup (for Rust/rust-analyzer), clangd (for C/C++) — only if you work in those languages
 
-The installer downloads any missing LSP servers (jdtls, ty-lsai, typescript-language-server, …) into `~/.lsai/servers/` and reports which languages are ready. Your project is never touched.
+The installer downloads any missing LSP servers (jdtls, ty-lsai, typescript-language-server, etc.) into `~/.lsai/servers/` and reports which languages are ready. Your project is never touched.
 
 What gets installed:
 ```
@@ -141,6 +145,18 @@ Claude Code inherits this directory as its working directory. When it spawns the
    ```
 3. For Java specifically: the **project must be built** before analysis (e.g. `mvn compile` or `gradle build`). LSAI is an analyzer — it reads build artifacts but does not build anything.
 
+**Efficient exploration pattern:**
+```
+lsai_search("UserService")     → find the symbol, get its location
+lsai_info("UserService")       → signature, docs, member count
+lsai_outline("UserService")    → list all methods/properties
+lsai_usages("processOrder")    → who references this method?
+lsai_callers("processOrder")   → call graph: who calls it?
+lsai_callees("processOrder")   → what does it call?
+lsai_impact("processOrder")    → risk assessment before changing it
+lsai_hierarchy("BaseService")  → inheritance chain
+```
+
 **When to call `lsai_workspace_open`:**
 
 Only when you need to analyze a project **outside** the user's cwd (e.g. a dependency in another directory). LSAI will generate the metadata for that path and open it:
@@ -151,9 +167,9 @@ Only when you need to analyze a project **outside** the user's cwd (e.g. a depen
 
 **What LSAI does NOT do:**
 
-- ❌ Build, compile, or modify the user's project
-- ❌ Require manual configuration files in the project
-- ❌ Need environment variables set by the user (JAVA_HOME is auto-resolved)
+- Build, compile, or modify the user's project
+- Require manual configuration files in the project
+- Need environment variables set by the user (JAVA_HOME is auto-resolved)
 
 ---
 
@@ -221,4 +237,4 @@ Report bugs and feature requests in [Issues](https://github.com/0ics-srls/Zerox.
 
 ## License
 
-Proprietary — © 0ics s.r.l.s.
+Proprietary — (c) 0ics s.r.l.s.
