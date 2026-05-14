@@ -274,16 +274,11 @@ Measured on C# (366 files) and JavaScript/Express (97 files). Tokens = chars / 4
 | source | 43 | 444 | **90%** | 151 | 489 | **69%** |
 | deps | 2,674 | 43,682 | **94%** | 1,925 | 5,435 | **65%** |
 
-**Richer tools** — LSAI returns MORE data than grep (full signatures, types, accessibility):
-
-| Tool | C# LSAI | C# grep | JS LSAI | JS grep | Why More |
-|------|--------:|--------:|--------:|--------:|----------|
-| outline | 365 | 33 | 314 | 300 | grep finds `class/def` lines; LSAI returns all members with full signatures |
-
 **Unique tools** — grep CANNOT do this:
 
 | Tool | C# | JS | What It Does |
 |------|---:|---:|-------------|
+| outline | 365 | 314 | File/class structure with full signatures, types, accessibility |
 | callers | 327 | 7 | Semantic call graph: who calls this method? |
 | callees | 0 | 24 | What does this method call? |
 | hierarchy | 21 | 4 | Inheritance tree |
