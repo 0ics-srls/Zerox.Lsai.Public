@@ -260,30 +260,35 @@ Or just `rm -rf ~/.lsai` and remove the `lsai` entry from your `.mcp.json`.
 
 ---
 
-## Full Benchmark Matrix — v1.0.176
+## Full Benchmark Matrix — v1.0.177
 
 Measured on C# (366 files) and JavaScript/Express (97 files). Tokens = chars / 4.
 
-| Tool | C# LSAI | C# grep | C# Save | JS LSAI | JS grep | JS Save | Category |
-|------|--------:|--------:|--------:|--------:|--------:|--------:|----------|
-| search | 98 | 1,805 | **95%** | 120 | 1,432 | **92%** | Comparable |
-| info | 27 | 292 | **91%** | 18 | 521 | **97%** | Comparable |
-| usages | 150 | 1,805 | **92%** | 14 | 1,432 | **99%** | Comparable |
-| outline | 356 | 33 | -979% | 314 | 300 | -5% | More data |
-| source | 428 | 457 | **6%** | 151 | 489 | **69%** | Comparable |
-| deps | 2,674 | 43,682 | **94%** | 49,498 | 5,435 | -811% | Bug (node_modules) |
-| callers | 327 | -- | -- | 7 | -- | -- | Unique |
-| callees | 0 | -- | -- | 24 | -- | -- | Unique |
-| hierarchy | 21 | -- | -- | 4 | -- | -- | Unique |
-| impact | 455 | -- | -- | 21 | -- | -- | Unique |
-| file_refs | 1,253 | -- | -- | 79 | -- | -- | Unique |
+**Comparable tools** — LSAI returns the same information in fewer tokens:
 
-**--** = grep cannot do this (no equivalent operation exists)
+| Tool | C# LSAI | C# grep | C# Save | JS LSAI | JS grep | JS Save |
+|------|--------:|--------:|--------:|--------:|--------:|--------:|
+| search | 98 | 1,805 | **95%** | 120 | 1,432 | **92%** |
+| info | 27 | 292 | **91%** | 18 | 521 | **97%** |
+| usages | 150 | 1,805 | **92%** | 14 | 1,432 | **99%** |
+| source | 43 | 444 | **90%** | 151 | 489 | **69%** |
+| deps | 2,674 | 43,682 | **94%** | 1,925 | 5,435 | **65%** |
 
-**Notes:**
-- `outline` returns MORE data than grep (full signatures, types, accessibility) — richer, not wasteful
-- `deps` JS bug: regex scans `node_modules/` — fix pending
-- `callers`/`callees`/`hierarchy`/`impact`/`file_refs`: semantic operations impossible with text search
+**Richer tools** — LSAI returns MORE data than grep (full signatures, types, accessibility):
+
+| Tool | C# LSAI | C# grep | JS LSAI | JS grep | Why More |
+|------|--------:|--------:|--------:|--------:|----------|
+| outline | 365 | 33 | 314 | 300 | grep finds `class/def` lines; LSAI returns all members with full signatures |
+
+**Unique tools** — grep CANNOT do this:
+
+| Tool | C# | JS | What It Does |
+|------|---:|---:|-------------|
+| callers | 327 | 7 | Semantic call graph: who calls this method? |
+| callees | 0 | 24 | What does this method call? |
+| hierarchy | 21 | 4 | Inheritance tree |
+| impact | 455 | 21 | Change risk: usages + callers + tests |
+| file_refs | 1,253 | 79 | Cross-file reference map |
 
 ---
 
