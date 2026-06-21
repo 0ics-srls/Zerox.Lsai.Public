@@ -5,7 +5,7 @@ description: "Semantic code navigation via LSAI MCP server. Use this skill whene
 
 # LSAI — Semantic Code Navigation
 
-**Skill version:** `v1.0.189` (matches the LSAI release that installed it — verify with
+**Skill version:** `v1.0.190` (matches the LSAI release that installed it — verify with
 `lsai_server`; the placeholder is replaced with the real version at publish time).
 
 LSAI is an MCP server that gives you compiler-grade code intelligence across 9 languages. It wraps real LSP servers (Roslyn, ty, tsserver, jdtls, intelephense, rust-analyzer, gopls, clangd) and exposes their capabilities as simple MCP tools.
