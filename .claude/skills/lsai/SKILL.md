@@ -135,7 +135,7 @@ or by keeping only your own-code paths and discarding vendored / build / system 
 | "Does X exist? signature / members?" | `lsai_info` / `lsai_outline` on the known name — precise, zero noise |
 | "Who uses / calls a REAL symbol?" | `lsai_usages` / `lsai_callers` |
 | Fuzzy discovery | `lsai_search` — always scoped |
-| Macro uses, non-code files (CMake/JSON/YAML) | grep |
+| (C/C++) macro uses, non-code files (CMake/JSON/YAML) | grep |
 | Third-party library API | xmp4 (library index), if available |
 
 **Negative-verdict discipline:** "X is absent / 0 uses" is trustworthy ONLY from a precise `info`/`outline`
@@ -193,10 +193,15 @@ Use the Java workspace ID for backend queries, TypeScript for frontend.
 - **PHP rename**: intelephense free tier doesn't support rename. Tool returns N/A.
 - **JavaScript workspace/symbol**: tsserver doesn't support workspace/symbol for CommonJS. Use `lsai_outline` per-file instead.
 - **Python hierarchy**: ty/pyright may not populate full supertype chain.
-- **Macros are NOT indexed (C/C++)**: a macro is a preprocessor construct, expanded before the AST exists,
-  so clangd's symbol index doesn't carry it like a declaration. `lsai_search`/`lsai_usages` on a `#define`
-  return empty / SymbolNotFound — that is NOT "0 uses". Go-to-definition within a file works; count macro
-  uses with grep, not LSAI.
+- **Macros are NOT indexed (C/C++)** — *measured*: a macro is a preprocessor construct, expanded before
+  the AST exists, so clangd's symbol index doesn't carry it like a declaration. `lsai_search`/`lsai_usages`
+  on a `#define` return empty / SymbolNotFound — that is NOT "0 uses". Go-to-definition within a file works;
+  count macro uses with grep, not LSAI.
+- **Compiler-expanded / generated constructs may be under-indexed (general)**: the same blind spot — code
+  that isn't a declaration in the AST until it's expanded/generated — can affect Rust proc-macros / `derive`
+  and C# source generators. Treat an empty result on such code as "may be under-indexed", and confirm with
+  grep or a build with the generators run. (Only the C/C++ macro case above is field-confirmed; the rest is
+  expected — verify on a real Rust/C# repo before relying on it.)
 - **C/C++ needs a compile database**: generate `compile_commands.json` (CMake `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`,
   or Bear for Make). LSAI points clangd at the DB directory at launch (`--compile-commands-dir`, resolved at
   spawn — you'll see it on the clangd *process* command line, not in `.lsai/mjsf.json`, which holds only the
