@@ -5,7 +5,7 @@ description: "Semantic code navigation via LSAI MCP server. Use this skill whene
 
 # LSAI — Semantic Code Navigation
 
-**Skill version:** `v1.0.191` (matches the LSAI release that installed it — verify with
+**Skill version:** `v1.0.197` (matches the LSAI release that installed it — verify with
 `lsai_server`; the placeholder is replaced with the real version at publish time).
 
 LSAI is an MCP server that gives you compiler-grade code intelligence across 9 languages. It wraps real LSP servers (Roslyn, ty, tsserver, jdtls, intelephense, rust-analyzer, gopls, clangd) and exposes their capabilities as simple MCP tools.
@@ -28,9 +28,14 @@ LSAI is a **parasite** — it attaches to already-built projects and analyzes th
 - LSAI auto-opens the workspace from the directory Claude Code was launched in
 - The `.lsai/` directory it creates in your project is internal metadata — safe to gitignore
 
-## Getting Your workspaceId
+## workspaceId — optional, auto-resolves
 
-Every tool call needs a `workspaceId`. Get it once from `lsai_server`:
+`workspaceId` is **optional**. When exactly one workspace is open, every tool
+auto-resolves it for you — just call `lsai_info(symbolName="Foo")` with no `workspaceId`.
+
+When **multiple** workspaces are open (multi-language project), an omitted `workspaceId`
+returns a readable error listing the available ids; pass the one you want. Get the ids from
+`lsai_server`:
 
 ```
 lsai_server()
@@ -38,9 +43,14 @@ lsai_server()
       my-project-java-1 | Java | /path/to/project | Ready
 ```
 
-Use `my-project-java-1` in all subsequent calls. If the workspace shows "Loading", wait and retry — LSP servers need warmup time (especially jdtls for Java: 30-60s first time).
+Use `my-project-java-1` to disambiguate. If the workspace shows "Loading", wait and retry —
+LSP servers need warmup time (especially jdtls for Java: 30-60s first time). For
+multi-language projects, LSAI auto-opens one workspace per detected language — pick the one
+matching the language you're exploring.
 
-For multi-language projects, LSAI auto-opens one workspace per detected language. You'll see multiple IDs — pick the one matching the language you're exploring.
+The per-tool **symbol argument** name varies by tool: `symbolName` (info, source, usages,
+impact, rename), `query` (search), `typeName` (hierarchy), `methodName` (callers, callees),
+`filePath` (context, file_refs). A missing required arg returns a clear error naming it.
 
 ## Readiness: Loading → Indexing → Ready (don't misread "empty")
 
@@ -247,4 +257,4 @@ CONTEXT  lsai_context(filePath="src/my.ts")
 RENAME   lsai_rename(symbolName="old", newName="new")
 ```
 
-All tools accept `workspaceId` (required) and optional `filePath` to narrow scope.
+All tools accept an optional `workspaceId` (auto-resolves for a single workspace; pass it from `lsai_server` when multiple are open) and optional `filePath` to narrow scope.
