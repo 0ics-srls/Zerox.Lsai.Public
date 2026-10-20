@@ -1,14 +1,14 @@
 ---
 name: lsai
-description: "Semantic code navigation via LSAI MCP server. Use this skill whenever the user asks to explore code, find symbols, understand call graphs, trace dependencies, analyze impact of changes, navigate class hierarchies, or inspect code structure — especially in multi-language projects. Also use when you detect mcp__lsai__* tools are available and the user is doing code exploration that would normally require grep/glob. LSAI provides compiler-grade intelligence across 9 languages (C#, Python, TypeScript, JavaScript, Java, PHP, Rust, Go, C/C++) through 14 MCP tools. Prefer LSAI over grep/glob/find for ANY code navigation — it saves 90%+ tokens and returns richer data."
+description: "Semantic code navigation via LSAI MCP server. Use this skill whenever the user asks to explore code, find symbols, understand call graphs, trace dependencies, analyze impact of changes, navigate class hierarchies, or inspect code structure — especially in multi-language projects. Also use when you detect mcp__lsai__* tools are available and the user is doing code exploration that would normally require grep/glob. LSAI provides compiler-grade intelligence across 10 languages (C#, Python, TypeScript, JavaScript, Java, PHP, Rust, Go, C/C++, GDScript) through 14 MCP tools. Prefer LSAI over grep/glob/find for ANY code navigation — it saves 90%+ tokens and returns richer data."
 ---
 
 # LSAI — Semantic Code Navigation
 
-**Skill version:** `v1.0.197` (matches the LSAI release that installed it — verify with
+**Skill version:** `v1.0.202` (matches the LSAI release that installed it — verify with
 `lsai_server`; the placeholder is replaced with the real version at publish time).
 
-LSAI is an MCP server that gives you compiler-grade code intelligence across 9 languages. It wraps real LSP servers (Roslyn, ty, tsserver, jdtls, intelephense, rust-analyzer, gopls, clangd) and exposes their capabilities as simple MCP tools.
+LSAI is an MCP server that gives you compiler-grade code intelligence across 10 languages. It wraps real LSP servers (Roslyn, ty, tsserver, jdtls, intelephense, rust-analyzer, gopls, clangd, gdshrapt-lsp) and exposes their capabilities as simple MCP tools.
 
 ## First: Check Availability
 
@@ -201,6 +201,7 @@ Use the Java workspace ID for backend queries, TypeScript for frontend.
 
 - **Java**: project must be built first (`mvn compile` / `gradle build`). jdtls cold-start takes 30-60s.
 - **PHP rename**: intelephense free tier doesn't support rename. Tool returns N/A.
+- **GDScript (Godot 4)**: `lsai_usages` on a signal or a callback method also lists the `.tscn` `[connection]` lines that wire it, and on an autoload singleton the `project.godot` `[autoload]` key; `lsai_rename` edits those lines too. `.godot/` (editor cache) is never indexed.
 - **JavaScript workspace/symbol**: tsserver doesn't support workspace/symbol for CommonJS. Use `lsai_outline` per-file instead.
 - **Python hierarchy**: ty/pyright may not populate full supertype chain.
 - **Macros are NOT indexed (C/C++)** — *measured*: a macro is a preprocessor construct, expanded before
